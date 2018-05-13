@@ -4,51 +4,51 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.radirusadi.swoosh.Utilities.EKSTRA_LEAGUE
+import com.radirusadi.swoosh.Model.Player
 import com.radirusadi.swoosh.R
+import com.radirusadi.swoosh.Utilities.EKSTRA_PLAYER
 import kotlinx.android.synthetic.main.activity_league.*
 
 class LeagueActivity : BaseActivity() {
 
-    var selectedLeague = ""
+    var player = Player("","") // class player with extends parcelable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_league)
-
     }
 
     fun onMensClick(view: View){
         womensLeagueBtn.isChecked = false
         coedLeagueBtn.isChecked = false
-        selectedLeague = "mens"
+        player.league = "mens"
 
         if (!mensLeagueBtn.isChecked)
-            selectedLeague = ""
+            player.league = ""
     }
 
     fun onWomensClick (view: View){
         mensLeagueBtn.isChecked = false
         coedLeagueBtn.isChecked = false
-        selectedLeague = "womens"
+        player.league = "womens"
 
         if (!womensLeagueBtn.isChecked)
-            selectedLeague = ""
+            player.league = ""
     }
 
     fun onCoedClick (view: View){
         mensLeagueBtn.isChecked = false
         womensLeagueBtn.isChecked = false
-        selectedLeague = "co-ed"
+        player.league = "co-ed"
 
         if (!coedLeagueBtn.isChecked)
-            selectedLeague = ""
+            player.league = ""
     }
 
     fun leagueNextClick (view: View){
-        if (selectedLeague != ""){
+        if (player.league != ""){
             val skillActivityIntent = Intent(this, SkillActivity::class.java)
-            skillActivityIntent.putExtra(EKSTRA_LEAGUE, selectedLeague)
+            skillActivityIntent.putExtra(EKSTRA_PLAYER, player)
             startActivity(skillActivityIntent)
         } else {
             Toast.makeText(this, "Please select a league.", Toast.LENGTH_SHORT).show()
